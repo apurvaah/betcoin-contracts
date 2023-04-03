@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 contract PollBetContract {
@@ -79,7 +80,7 @@ contract PollBetContract {
         poll.votes[msg.sender] = _pollChoice;
     }
 
-    function betOnPoll(uint _pollId, string _pollChoice) public payable {
+    function betOnPoll(uint _pollId, string _pollChoice) public payable { // Data location must be "memory" or "calldata" for parameter in function, but none was given
         require(block.timestamp >= polls[_pollId].startTime, "Poll has not started yet, you cannot bet on it");
         require(block.timestamp < polls[_pollId].endTime, "Poll has ended, you cannot bet on it anymore");
         require(msg.value > 0, "Amount must be greater than 0!");
@@ -108,11 +109,13 @@ contract PollBetContract {
         emit BetPlaced(_pollId, _pollChoice, msg.sender, msg.value);
     }
 
-    function getBetCount(){}
+    function getBetCount(uint _pollId) public view returns(uint) {
+        return pollBetsList[_pollId].length;
+    }
 
-    function getOdds(){}
+    function getOdds(uint _pollId, uint _pollChoice) public view returns(uint){}
 
-    function closePoll(){} //publish to blockchain as well
+    function closePoll() public {} //publish to blockchain as well
 
-    function distributeRewards(){}
+    function distributeRewards() public {}
 }
