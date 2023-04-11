@@ -118,6 +118,31 @@
 				"type": "event"
 			},
 			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "pollId",
+						"type": "uint256"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "voter",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "choice",
+						"type": "uint256"
+					}
+				],
+				"name": "VoteCasted",
+				"type": "event"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "address",
@@ -206,6 +231,19 @@
 				"type": "function"
 			},
 			{
+				"inputs": [],
+				"name": "getNextIndex",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -243,6 +281,30 @@
 						"internalType": "uint256[]",
 						"name": "",
 						"type": "uint256[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "hasVoted",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
 					}
 				],
 				"stateMutability": "view",
@@ -407,6 +469,19 @@
 				"type": "function"
 			},
 			{
+				"inputs": [],
+				"name": "voteInstanceCounter",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -453,11 +528,11 @@
 	},
 	"sources": {
 		"contracts/PollBetContract.sol": {
-			"keccak256": "0x92dd2edcdb8306a6b8c893717020ae5edf12b764c56a9255abb45ffd7ef02ef6",
+			"keccak256": "0x346839d7f2675ffa97af0c5eb97012821c9996b1e9ca75da6fafec6a807b756e",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://5e775b7d86929c10ca4d4aa2624a30a9247b936bbe50a4db0d92e9890e1286c5",
-				"dweb:/ipfs/QmbDUvyzoa9JaA2JVQ2nrc7pE4GpdxSVWhMdzQ4vHmudKe"
+				"bzz-raw://9aa820162324e92b8af257d7af346ca36ce83a70092069b7b86970473a9a3535",
+				"dweb:/ipfs/QmRYDRKTkAZFB5qaRg3PMURUjBCckPUB4KFP6Lhz27P1bG"
 			]
 		}
 	},

@@ -3,6 +3,8 @@ pragma solidity ^0.8.0;
 
 contract PollBetContract {
 
+    uint public voteInstanceCounter = 0;
+
     struct Poll {
         uint id;
         address creator;
@@ -10,10 +12,11 @@ contract PollBetContract {
         uint endTime;
         string[] choices;
         bool isOpen;
-        Voter[] voters;
     }
 
     struct Voter {
+        uint pollId;
+        uint voteInstance;
         address voterAddress;
         uint choice;
     }
@@ -42,6 +45,7 @@ contract PollBetContract {
     mapping(uint => uint[]) public pollWinners;
     mapping(address => uint) public balances;
     mapping(uint => Bet[]) public pollBetsList;
+    mapping(uint => mapping(address => bool)) public hasVoted;
 
     Poll[] public polls;
     //mapping(uint => Poll) public polls; // change to mapping
@@ -53,6 +57,8 @@ contract PollBetContract {
         pollCount++;
 
         Voter memory default_voter = Voter({
+            voteInstance: getNextIndex(),
+            pollId: pollCount,
             voterAddress: address(0x0),
             choice: 1
         });
@@ -66,8 +72,7 @@ contract PollBetContract {
             startTime: _startTime,
             endTime: _endTime,
             choices: _options,
-            isOpen: true,
-            voters: default_voters
+            isOpen: true
         });
 
         polls[pollCount] = newPoll;
@@ -90,25 +95,13 @@ contract PollBetContract {
 
     function voteOnPoll(uint _pollId, uint _pollChoice) public {
         Poll storage poll = polls[_pollId];
-        bool hasVoted = false;
         
-        for (uint i = 0; i < poll.voters.length; i++) {
-            if (poll.voters[i].voterAddress == msg.sender) {
-                hasVoted = true;
-                break;
-            }
-        }
-
-        require(!hasVoted, "Already voted");
+        require(!hasVoted[_pollId][msg.sender], "Already voted");
         require(poll.isOpen, "Poll is closed");
         require(block.timestamp >= poll.startTime && block.timestamp <= poll.endTime, "Poll is not active");
         require(_pollChoice >= 0 && _pollChoice < poll.choices.length, "Invalid choice");
 
-        Voter memory newVoter = Voter({
-            voterAddress: msg.sender,
-            choice: _pollChoice
-        });
-        poll.voters.push(newVoter);
+        hasVoted[_pollId][msg.sender] = true;
 
         emit VoteCasted(_pollId, msg.sender, _pollChoice);
     }
@@ -151,4 +144,9 @@ contract PollBetContract {
     function closePoll() public {} //publish to blockchain as well
 
     function distributeRewards() public {}
+
+    function getNextIndex() public returns (uint) {
+        voteInstanceCounter++;
+        return voteInstanceCounter;
+    }
 }
