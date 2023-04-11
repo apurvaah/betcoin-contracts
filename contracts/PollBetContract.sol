@@ -68,17 +68,16 @@ contract PollBetContract {
         emit PollCreated(pollCount, msg.sender, _startTime, _endTime, _options);
     }
 
-    function getPollVotes(uint pollId) public view returns (uint[] memory) { // should this be public, we have used the requuire statement
-        require(block.timestamp > polls[pollId].endTime, "Poll has not ended yet");
+    function getPollVotes(uint _pollId) public view returns (uint) { // should this be public, we have used the requuire statement
+        require(block.timestamp > polls[_pollId].endTime, "Poll has not ended yet");
 
-        //verify this? this has to be fetched from blockchain
-        uint[] memory votes = new uint[](polls[pollId].choices.length);
-
-        for (uint i = 0; i < polls[pollId].choices.length; i++) {
-            /*votes[i] = pollBets[pollId][address(i)];*/
+        /*uint count = 0;
+        mapping(address => Voter) storage pollVoters = voters[_pollId];
+        for (uint i = 0; i < pollVoters.length; i++) {
+            count++;
         }
-
-        return votes;
+        return count;*/
+        return 0;
     }
 
     function voteOnPoll(uint _pollId, uint _pollChoice) public {
