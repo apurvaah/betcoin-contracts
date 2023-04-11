@@ -280,7 +280,7 @@
 						"type": "uint256"
 					}
 				],
-				"name": "getPollVotes",
+				"name": "getPollVotersCount",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -553,12 +553,20 @@
 		"remappings": []
 	},
 	"sources": {
-		"contracts/PollBetContract.sol": {
-			"keccak256": "0x36d476d4b02fcff176872c2886f71e454c1d9b1dbb59b5068433bcdadee1e5de",
+		"@openzeppelin/contracts/utils/structs/EnumerableSet.sol": {
+			"keccak256": "0xc3ff3f5c4584e1d9a483ad7ced51ab64523201f4e3d3c65293e4ca8aeb77a961",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://923cb8964241c48d17db8ce5c36efdadf8ee8154803a2d6416ccb294c34045a9",
-				"dweb:/ipfs/QmSq8F2RyT3FiwjmDzVwXb5ueTpzbDig6VYfm98kmcDre9"
+				"bzz-raw://d7d3dd6067a994690471b5fc71b6f81fac3847798b37d404f74db00b4d3c3d0e",
+				"dweb:/ipfs/QmRHF1RarifjNi93RttouNPkYZGyu6CD926PgRDzD5iL35"
+			]
+		},
+		"contracts/PollBetContract.sol": {
+			"keccak256": "0x213ba621f334882c83fcece0d1d7f19673cec672bc32a72a8a57ad8655470feb",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://b4bb253a628963e824bd3516e3fab6514f5f98424838826cf4d0d85f49f646c0",
+				"dweb:/ipfs/QmPDw15pNepc22tG1vwkntqqLhVyJR9ZgD2yK5xMCcHjfY"
 			]
 		}
 	},

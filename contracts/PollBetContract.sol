@@ -1,7 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
+pragma experimental ABIEncoderV2;
+
+import "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
 
 contract PollBetContract {
+
+    using EnumerableSet for EnumerableSet.AddressSet;
 
     struct Poll {
         uint id;
@@ -44,6 +49,7 @@ contract PollBetContract {
     mapping(uint => Bet[]) public pollBetsList;
     mapping(uint => mapping(address => bool)) public hasVoted;
     mapping(uint => mapping(address => Voter)) public voters;
+    mapping(uint => EnumerableSet.AddressSet) internal voterAddressSets;
 
     Poll[] public polls;
     //mapping(uint => Poll) public polls; // change to mapping
@@ -68,17 +74,18 @@ contract PollBetContract {
         emit PollCreated(pollCount, msg.sender, _startTime, _endTime, _options);
     }
 
-    function getPollVotes(uint _pollId) public view returns (uint) { // should this be public, we have used the requuire statement
-        require(block.timestamp > polls[_pollId].endTime, "Poll has not ended yet");
+    function getPollVotersCount(uint _pollId) public view returns (uint) {
+        uint count = 0;
+        EnumerableSet.AddressSet storage voterAddresses = voterAddressSets[_pollId];
 
-        /*uint count = 0;
-        mapping(address => Voter) storage pollVoters = voters[_pollId];
-        for (uint i = 0; i < pollVoters.length; i++) {
+        for (uint i = 0; i < EnumerableSet.length(voterAddresses); i++) {
+            //address voterAddress = EnumerableSet.at(voterAddresses, i);
             count++;
         }
-        return count;*/
-        return 0;
+
+        return count;
     }
+
 
     function voteOnPoll(uint _pollId, uint _pollChoice) public {
         Poll storage poll = polls[_pollId];
@@ -96,6 +103,7 @@ contract PollBetContract {
             choice: _pollChoice
         });
         voters[_pollId][msg.sender] = newVoter;
+        addVoterAddressSet(_pollId,msg.sender);
 
         emit VoteCasted(_pollId, msg.sender, _pollChoice);
     }
@@ -149,6 +157,10 @@ contract PollBetContract {
             bytesArray[i] = _bytes32[i];
         }
         return string(bytesArray);
+    }
+
+    function addVoterAddressSet(uint _pollId, address _voterAddress) private {
+        voterAddressSets[_pollId].add(_voterAddress);
     }
 
 }
