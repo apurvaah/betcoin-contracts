@@ -3,8 +3,6 @@ pragma solidity ^0.8.0;
 
 contract PollBetContract {
 
-    uint public voteInstanceCounter = 0;
-
     struct Poll {
         uint id;
         address creator;
@@ -55,16 +53,6 @@ contract PollBetContract {
         require(_options.length > 1, "At least two options required");
 
         pollCount++;
-
-        Voter memory default_voter = Voter({
-            voteInstance: getNextIndex(),
-            pollId: pollCount,
-            voterAddress: address(0x0),
-            choice: 1
-        });
-
-        Voter[] memory default_voters = new Voter[](1);
-        default_voters[0] = default_voter;
 
         Poll memory newPoll = Poll({
             id: pollCount,
@@ -144,9 +132,4 @@ contract PollBetContract {
     function closePoll() public {} //publish to blockchain as well
 
     function distributeRewards() public {}
-
-    function getNextIndex() public returns (uint) {
-        voteInstanceCounter++;
-        return voteInstanceCounter;
-    }
 }
