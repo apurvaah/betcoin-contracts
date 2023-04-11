@@ -40,6 +40,19 @@
 				"anonymous": false,
 				"inputs": [
 					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "message",
+						"type": "string"
+					}
+				],
+				"name": "Log",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
 						"indexed": true,
 						"internalType": "uint256",
 						"name": "id",
@@ -256,9 +269,9 @@
 						"type": "uint256"
 					},
 					{
-						"internalType": "uint256",
+						"internalType": "string",
 						"name": "_pollChoice",
-						"type": "uint256"
+						"type": "string"
 					}
 				],
 				"name": "getOdds",
@@ -281,6 +294,25 @@
 					}
 				],
 				"name": "getPollVotersCount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_pollId",
+						"type": "uint256"
+					}
+				],
+				"name": "getTotalBetAmount",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -562,11 +594,11 @@
 			]
 		},
 		"contracts/PollBetContract.sol": {
-			"keccak256": "0x213ba621f334882c83fcece0d1d7f19673cec672bc32a72a8a57ad8655470feb",
+			"keccak256": "0xd8a9fd7347499eb841a31dd06aafe3550f3985f1d59f0a054faf703335cf326e",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://b4bb253a628963e824bd3516e3fab6514f5f98424838826cf4d0d85f49f646c0",
-				"dweb:/ipfs/QmPDw15pNepc22tG1vwkntqqLhVyJR9ZgD2yK5xMCcHjfY"
+				"bzz-raw://dda298683052a1c0486328082dfc68963b7a29cd3253c98540a705fd0942cca7",
+				"dweb:/ipfs/QmWKPrELj5V6am7QtrL5ZP6ZKLCkXm3E5J5jW7CrFdbv3y"
 			]
 		}
 	},

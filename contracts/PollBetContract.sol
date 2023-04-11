@@ -36,6 +36,7 @@ contract PollBetContract {
     event BetPlaced(uint indexed pollId, string pollChoice, address indexed user, uint amount);
     event RewardsDistributed(uint indexed pollId, address[] winners, uint[] rewards);
     event VoteCasted(uint indexed pollId, address indexed voter, uint choice);
+    event Log(string message);
 
 
     // Variables
@@ -141,7 +142,26 @@ contract PollBetContract {
         return pollBetsList[_pollId].length;
     }
 
-    function getOdds(uint _pollId, uint _pollChoice) public view returns(uint){}
+    function getTotalBetAmount(uint _pollId) public view returns(uint) {
+        uint totalBetAmount = 0;
+        for (uint i = 0; i < pollBetsList[_pollId].length; i++) {
+            totalBetAmount += pollBetsList[_pollId][i].amount;
+        }
+        return totalBetAmount;
+    }
+
+    function getOdds(uint _pollId, string calldata _pollChoice) public view returns(uint){
+
+        uint totalChoiceAmount = 0;
+        Bet[] storage bets = pollBetsList[_pollId];
+        for (uint i = 0; i < bets.length; i++) {
+            if (keccak256(bytes(bets[i].pollChoice)) == keccak256(bytes(_pollChoice))) {
+                totalChoiceAmount += bets[i].amount;
+            }
+        }
+        uint totalBetAmount = getTotalBetAmount(_pollId);
+        return totalBetAmount > 0 ? totalChoiceAmount / totalBetAmount : 0;
+    }
 
     function closePoll() public {} //publish to blockchain as well
 
