@@ -8,9 +8,14 @@ contract PollBetContract {
         address creator;
         uint startTime;
         uint endTime;
-        string[] options;
-        mapping(address => uint) votes;
+        string[] choices;
         bool isOpen;
+        Voter[] voters;
+    }
+
+    struct Voter {
+        address voterAddress;
+        uint choice;
     }
 
     struct Bet {
@@ -25,33 +30,47 @@ contract PollBetContract {
     event PollClosed(uint indexed id, address indexed winner);
     event BetPlaced(uint indexed pollId, string pollChoice, address indexed user, uint amount);
     event RewardsDistributed(uint indexed pollId, address[] winners, uint[] rewards);
+    event VoteCasted(uint indexed pollId, address indexed voter, uint choice);
+
 
     // Variables
     uint public pollCount;
     uint public betCount;
     // mapping - to store data on blockchain
-    mapping(uint => Poll) public polls;
     mapping(uint => uint) public pollBetTotal;
     mapping(uint => mapping(address => uint)) public pollBets;
     mapping(uint => uint[]) public pollWinners;
     mapping(address => uint) public balances;
     mapping(uint => Bet[]) public pollBetsList;
 
+    Poll[] public polls;
+    //mapping(uint => Poll) public polls; // change to mapping
+
     function createPoll(uint _startTime, uint _endTime, string[] memory _options) public {
         require(_endTime > _startTime, "Invalid poll end time");
         require(_options.length > 1, "At least two options required");
 
         pollCount++;
-        polls[pollCount] = Poll({
+
+        Voter memory default_voter = Voter({
+            voterAddress: address(0x0),
+            choice: 1
+        });
+
+        Voter[] memory default_voters = new Voter[](1);
+        default_voters[0] = default_voter;
+
+        Poll memory newPoll = Poll({
             id: pollCount,
             creator: msg.sender,
             startTime: _startTime,
             endTime: _endTime,
-            options: _options,
-            isOpen: true
+            choices: _options,
+            isOpen: true,
+            voters: default_voters
         });
 
-        //write it to blockchain?
+        polls[pollCount] = newPoll;
 
         emit PollCreated(pollCount, msg.sender, _startTime, _endTime, _options);
     }
@@ -60,27 +79,41 @@ contract PollBetContract {
         require(block.timestamp > polls[pollId].endTime, "Poll has not ended yet");
 
         //verify this? this has to be fetched from blockchain
-        uint[] memory votes = new uint[](polls[pollId].options.length);
+        uint[] memory votes = new uint[](polls[pollId].choices.length);
 
-        for (uint i = 0; i < polls[pollId].options.length; i++) {
-            votes[i] = pollBets[pollId][address(i)];
+        for (uint i = 0; i < polls[pollId].choices.length; i++) {
+            /*votes[i] = pollBets[pollId][address(i)];*/
         }
 
         return votes;
     }
 
-
     function voteOnPoll(uint _pollId, uint _pollChoice) public {
         Poll storage poll = polls[_pollId];
-        require(poll.votes[msg.sender] == 0, "Already voted");
+        bool hasVoted = false;
+        
+        for (uint i = 0; i < poll.voters.length; i++) {
+            if (poll.voters[i].voterAddress == msg.sender) {
+                hasVoted = true;
+                break;
+            }
+        }
+
+        require(!hasVoted, "Already voted");
         require(poll.isOpen, "Poll is closed");
         require(block.timestamp >= poll.startTime && block.timestamp <= poll.endTime, "Poll is not active");
-        require(_pollChoice >= 0 && _pollChoice < poll.options.length, "Invalid choice");
+        require(_pollChoice >= 0 && _pollChoice < poll.choices.length, "Invalid choice");
 
-        poll.votes[msg.sender] = _pollChoice;
+        Voter memory newVoter = Voter({
+            voterAddress: msg.sender,
+            choice: _pollChoice
+        });
+        poll.voters.push(newVoter);
+
+        emit VoteCasted(_pollId, msg.sender, _pollChoice);
     }
 
-    function betOnPoll(uint _pollId, string _pollChoice) public payable { // Data location must be "memory" or "calldata" for parameter in function, but none was given
+    /*function betOnPoll(uint _pollId, string _pollChoice) public payable { // Data location must be "memory" or "calldata" for parameter in function, but none was given
         require(block.timestamp >= polls[_pollId].startTime, "Poll has not started yet, you cannot bet on it");
         require(block.timestamp < polls[_pollId].endTime, "Poll has ended, you cannot bet on it anymore");
         require(msg.value > 0, "Amount must be greater than 0!");
@@ -107,7 +140,7 @@ contract PollBetContract {
         }));
 
         emit BetPlaced(_pollId, _pollChoice, msg.sender, msg.value);
-    }
+    }*/
 
     function getBetCount(uint _pollId) public view returns(uint) {
         return pollBetsList[_pollId].length;
