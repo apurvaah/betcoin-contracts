@@ -100,15 +100,15 @@ contract PollBetContract {
         emit VoteCasted(_pollId, msg.sender, _pollChoice);
     }
 
-    /*function betOnPoll(uint _pollId, string _pollChoice) public payable { // Data location must be "memory" or "calldata" for parameter in function, but none was given
+    function betOnPoll(uint _pollId, bytes32 _pollChoice) public payable { // Data location must be "memory" or "calldata" for parameter in function, but none was given
         require(block.timestamp >= polls[_pollId].startTime, "Poll has not started yet, you cannot bet on it");
         require(block.timestamp < polls[_pollId].endTime, "Poll has ended, you cannot bet on it anymore");
         require(msg.value > 0, "Amount must be greater than 0!");
 
         // Convert poll choice to uint
         uint pollChoiceInt;
-        for (uint i = 0; i < polls[_pollId].options.length; i++) {
-            if (keccak256(bytes(polls[_pollId].options[i])) == keccak256(bytes(_pollChoice))) {
+        for (uint i = 0; i < polls[_pollId].choices.length; i++) {
+            if (keccak256(bytes(polls[_pollId].choices[i])) == _pollChoice) {
                 pollChoiceInt = i;
                 break;
             }
@@ -121,13 +121,13 @@ contract PollBetContract {
 
         pollBetsList[_pollId].push(Bet({
             pollId: _pollId,
-            pollChoice: _pollChoice,
+            pollChoice: bytes32ToString(_pollChoice),
             user: msg.sender,
             amount: msg.value
         }));
 
-        emit BetPlaced(_pollId, _pollChoice, msg.sender, msg.value);
-    }*/
+        emit BetPlaced(_pollId, bytes32ToString(_pollChoice), msg.sender, msg.value);
+    }
 
     function getBetCount(uint _pollId) public view returns(uint) {
         return pollBetsList[_pollId].length;
@@ -138,4 +138,17 @@ contract PollBetContract {
     function closePoll() public {} //publish to blockchain as well
 
     function distributeRewards() public {}
+
+    function bytes32ToString(bytes32 _bytes32) private pure returns (string memory) {
+        uint8 i = 0;
+        while(i < 32 && _bytes32[i] != 0) {
+            i++;
+        }
+        bytes memory bytesArray = new bytes(i);
+        for (i = 0; i < bytesArray.length; i++) {
+            bytesArray[i] = _bytes32[i];
+        }
+        return string(bytesArray);
+    }
+
 }
