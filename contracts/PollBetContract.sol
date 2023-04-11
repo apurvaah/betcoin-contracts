@@ -14,7 +14,6 @@ contract PollBetContract {
 
     struct Voter {
         uint pollId;
-        uint voteInstance;
         address voterAddress;
         uint choice;
     }
@@ -44,6 +43,7 @@ contract PollBetContract {
     mapping(address => uint) public balances;
     mapping(uint => Bet[]) public pollBetsList;
     mapping(uint => mapping(address => bool)) public hasVoted;
+    mapping(uint => mapping(address => Voter)) public voters;
 
     Poll[] public polls;
     //mapping(uint => Poll) public polls; // change to mapping
@@ -90,6 +90,13 @@ contract PollBetContract {
         require(_pollChoice >= 0 && _pollChoice < poll.choices.length, "Invalid choice");
 
         hasVoted[_pollId][msg.sender] = true;
+
+        Voter memory newVoter = Voter({
+            pollId: _pollId,
+            voterAddress: msg.sender,
+            choice: _pollChoice
+        });
+        voters[_pollId][msg.sender] = newVoter;
 
         emit VoteCasted(_pollId, msg.sender, _pollChoice);
     }

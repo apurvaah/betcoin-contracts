@@ -472,6 +472,40 @@
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "voters",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "pollId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "voterAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "choice",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
 			}
 		],
 		"devdoc": {
@@ -502,11 +536,11 @@
 	},
 	"sources": {
 		"contracts/PollBetContract.sol": {
-			"keccak256": "0x836a86525e8c78861542a8389be2458caca2ccb1dc360c1e3797d335d61a84e7",
+			"keccak256": "0x27df2001c961b46ef5f9c63496513a33343c28f295de31d086d94f84285e0281",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://7ef6ce16b41679a5c3a1a9dfc89d2ba32c8962620e79a9e485b9411376e6ca63",
-				"dweb:/ipfs/QmTXi4HqMyE2qUH8cQMAtnSBr1YXXeFxEw5X6dresTckDL"
+				"bzz-raw://f6cc4bb6b7c4ac59a8874d48ce382386365c29a8362343efaf95bbaf0f61543b",
+				"dweb:/ipfs/Qmah6iYyFjnv9syyfmb5efVMocK7qwn7RwvXzSTsKoCNFG"
 			]
 		}
 	},
