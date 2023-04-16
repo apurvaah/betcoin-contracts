@@ -7,6 +7,8 @@ import "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
 contract PollBetContract {
 
     using EnumerableSet for EnumerableSet.AddressSet;
+    // State variable to keep track of the total supply of BetCoin tokens
+    uint public totalSupply;
 
     struct Poll {
         uint id;
@@ -37,6 +39,7 @@ contract PollBetContract {
     event RewardsDistributed(uint indexed pollId, address[] winners, uint[] rewards);
     event VoteCasted(uint indexed pollId, address indexed voter, uint choice);
     event Log(string message);
+    event BetCoinMined(address indexed _to, uint256 _amount);
 
 
     // Variables
@@ -46,6 +49,7 @@ contract PollBetContract {
     mapping(uint => uint) public pollBetTotal;
     mapping(uint => mapping(address => uint)) public pollBets;
     mapping(uint => uint[]) public pollWinners;
+    // Mapping to keep track of the balance of BetCoin tokens for each address
     mapping(address => uint) public balances;
     mapping(uint => Bet[]) public pollBetsList;
     mapping(uint => mapping(address => bool)) public hasVoted;
@@ -163,7 +167,13 @@ contract PollBetContract {
         return totalBetAmount > 0 ? totalChoiceAmount / totalBetAmount : 0;
     }
 
-    function closePoll() public {} //publish to blockchain as well
+    function closePoll() public {
+        //decidewinner
+        //calldistributerewards
+        //take encrypted blockchain data
+        //decrypt it
+        //publish
+    }
 
     function distributeRewards() public {}
 
@@ -181,6 +191,18 @@ contract PollBetContract {
 
     function addVoterAddressSet(uint _pollId, address _voterAddress) private {
         voterAddressSets[_pollId].add(_voterAddress);
+    }
+
+    // Function to mint new BetCoin tokens and add them to the balance of the given address
+    function mineBetCoin(address _to, uint _amount) public {
+        // Increase the total supply by the specified amount
+        totalSupply += _amount;
+
+        // Add the specified amount of tokens to the balance of the given address
+        balances[_to] += _amount;
+
+        // Emit an event to notify that new tokens have been mined and added to the balance of the given address
+        emit BetCoinMined(_to, _amount);
     }
 
 }

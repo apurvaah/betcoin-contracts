@@ -10,6 +10,25 @@
 				"inputs": [
 					{
 						"indexed": true,
+						"internalType": "address",
+						"name": "_to",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "_amount",
+						"type": "uint256"
+					}
+				],
+				"name": "BetCoinMined",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
 						"internalType": "uint256",
 						"name": "pollId",
 						"type": "uint256"
@@ -350,6 +369,24 @@
 			{
 				"inputs": [
 					{
+						"internalType": "address",
+						"name": "_to",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_amount",
+						"type": "uint256"
+					}
+				],
+				"name": "mineBetCoin",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "uint256",
 						"name": "",
 						"type": "uint256"
@@ -506,6 +543,19 @@
 				"type": "function"
 			},
 			{
+				"inputs": [],
+				"name": "totalSupply",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -594,11 +644,11 @@
 			]
 		},
 		"contracts/PollBetContract.sol": {
-			"keccak256": "0xd8a9fd7347499eb841a31dd06aafe3550f3985f1d59f0a054faf703335cf326e",
+			"keccak256": "0x9b7e1e7cd0a2b2e80fbc12c9654d6643c3812ce5795404dc6c80508f6499197d",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://dda298683052a1c0486328082dfc68963b7a29cd3253c98540a705fd0942cca7",
-				"dweb:/ipfs/QmWKPrELj5V6am7QtrL5ZP6ZKLCkXm3E5J5jW7CrFdbv3y"
+				"bzz-raw://2ba7d15633f1a3858099466098739285343b753543183d76825966e964182380",
+				"dweb:/ipfs/QmSvZDRGGAodwzGpWa9FcJjU5K3FAbunqnTLoTJTsXwSHc"
 			]
 		}
 	},
