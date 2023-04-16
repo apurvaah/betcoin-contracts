@@ -10,25 +10,6 @@
 				"inputs": [
 					{
 						"indexed": true,
-						"internalType": "address",
-						"name": "_to",
-						"type": "address"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "_amount",
-						"type": "uint256"
-					}
-				],
-				"name": "BetCoinMined",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": true,
 						"internalType": "uint256",
 						"name": "pollId",
 						"type": "uint256"
@@ -312,6 +293,62 @@
 						"type": "uint256"
 					}
 				],
+				"name": "getPollInfo",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "id",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address",
+								"name": "creator",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "startTime",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "endTime",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string[]",
+								"name": "choices",
+								"type": "string[]"
+							},
+							{
+								"internalType": "uint256[]",
+								"name": "choiceCounts",
+								"type": "uint256[]"
+							},
+							{
+								"internalType": "bool",
+								"name": "isOpen",
+								"type": "bool"
+							}
+						],
+						"internalType": "struct PollBetContract.Poll",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_pollId",
+						"type": "uint256"
+					}
+				],
 				"name": "getPollVotersCount",
 				"outputs": [
 					{
@@ -364,24 +401,6 @@
 					}
 				],
 				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "_to",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "_amount",
-						"type": "uint256"
-					}
-				],
-				"name": "mineBetCoin",
-				"outputs": [],
-				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -485,14 +504,9 @@
 						"internalType": "uint256",
 						"name": "",
 						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
 					}
 				],
-				"name": "pollWinners",
+				"name": "pollCounts",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -509,42 +523,14 @@
 						"internalType": "uint256",
 						"name": "",
 						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
 					}
 				],
-				"name": "polls",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "id",
-						"type": "uint256"
-					},
-					{
-						"internalType": "address",
-						"name": "creator",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "startTime",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "endTime",
-						"type": "uint256"
-					},
-					{
-						"internalType": "bool",
-						"name": "isOpen",
-						"type": "bool"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "totalSupply",
+				"name": "pollWinners",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -644,11 +630,11 @@
 			]
 		},
 		"contracts/PollBetContract.sol": {
-			"keccak256": "0x9b7e1e7cd0a2b2e80fbc12c9654d6643c3812ce5795404dc6c80508f6499197d",
+			"keccak256": "0x609dfa9ed802d3fa990e378b8e2803289e12970e59e9b9c3cae1ec189a336af1",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://2ba7d15633f1a3858099466098739285343b753543183d76825966e964182380",
-				"dweb:/ipfs/QmSvZDRGGAodwzGpWa9FcJjU5K3FAbunqnTLoTJTsXwSHc"
+				"bzz-raw://4aacac3ab8f5133e9da89b7bd00255f2660d2e2e37c4c44c6de798702729ac0d",
+				"dweb:/ipfs/QmPJ3yGgDx4yt2YtWHcd6wRdopfKpXa6SbM5f2Y6mpUkvp"
 			]
 		}
 	},
