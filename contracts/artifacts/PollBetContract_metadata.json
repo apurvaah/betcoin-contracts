@@ -195,9 +195,9 @@
 						"type": "uint256"
 					},
 					{
-						"internalType": "bytes32",
+						"internalType": "uint256",
 						"name": "_pollChoice",
-						"type": "bytes32"
+						"type": "uint256"
 					}
 				],
 				"name": "betOnPoll",
@@ -630,11 +630,11 @@
 			]
 		},
 		"contracts/PollBetContract.sol": {
-			"keccak256": "0x609dfa9ed802d3fa990e378b8e2803289e12970e59e9b9c3cae1ec189a336af1",
+			"keccak256": "0xf83be9d9f30cfda49fc52c1c4142a91e9fc8409b36d7ed06a4b38afbc59c0f9e",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://4aacac3ab8f5133e9da89b7bd00255f2660d2e2e37c4c44c6de798702729ac0d",
-				"dweb:/ipfs/QmPJ3yGgDx4yt2YtWHcd6wRdopfKpXa6SbM5f2Y6mpUkvp"
+				"bzz-raw://7622f582095bc600ccb721ed8d9cdbad9412b30e9c8e2b87e7fe578ff5aa6467",
+				"dweb:/ipfs/QmYSWusmwPSWaVM738B2qyXUWBZvMkhQSR1e3v6wZ8E8Je"
 			]
 		}
 	},
