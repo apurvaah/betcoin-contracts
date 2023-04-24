@@ -269,9 +269,9 @@
 						"type": "uint256"
 					},
 					{
-						"internalType": "string",
+						"internalType": "uint256",
 						"name": "_pollChoice",
-						"type": "string"
+						"type": "uint256"
 					}
 				],
 				"name": "getOdds",
@@ -630,11 +630,11 @@
 			]
 		},
 		"contracts/PollBetContract.sol": {
-			"keccak256": "0xf83be9d9f30cfda49fc52c1c4142a91e9fc8409b36d7ed06a4b38afbc59c0f9e",
+			"keccak256": "0x211541e20266224725c76b5eae3d9e1849b48ea40e40870f6764c477f179e8ff",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://7622f582095bc600ccb721ed8d9cdbad9412b30e9c8e2b87e7fe578ff5aa6467",
-				"dweb:/ipfs/QmYSWusmwPSWaVM738B2qyXUWBZvMkhQSR1e3v6wZ8E8Je"
+				"bzz-raw://e6090c6c56370f11eace878b98c64c2116581d4b3d17b64a68f01afacf8b764b",
+				"dweb:/ipfs/QmPtdi1hqnc1ycfGc7WB8rKvnfK2rzsa841B1x8EsJqYsa"
 			]
 		}
 	},
